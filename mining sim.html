@@ -1,520 +1,612 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-        <title>mining sim</title>
-        
-    </head>
-    <body>
-        <center>
-            <p>Mining Simulator</p>
-            <h3>money</h3>
-            
-           <div class="div1"></div>
-<h3>bitcoins</h3>
-
-<div class="div"></div>
-        <br>
-        <button class="btc">btc = $</button>
-        <br>
- 
-        <p>50$ RTX2080Ti 1 b. 2 s.</p>
-        <br>
-        
-    <canvas width="200" height="100"></canvas>
-    <br>
-    <button class="buy">buy</button>
-    <button class="sell">sell</button>
-    <div class="check">check</div>
-    
-   
-    <br>
-    <p>1000$ QUARDO RTX4000 5 b. 2 s.</p>
-    <br>
-    <canvas width="200" height="100" class="hhhh"></canvas>
-    <br>
-    <button class="kkk">buy</button>
-    <button class="jjj">sell</button>
-    <div class="ccc">check</div>
-    <br>
-    
-    <p>10000$ RTX 3090 15 b. 2 s.</p>
-    <canvas width="200" height="100" class="cccccc"></canvas>
-    <br>
-    <button class="bbbb">buy</button>
- <button class="ssss">sell</button>
- <div class="ccccc">check</div>
- <br>
- <p>100000$ ASUS GeForce RTX 3060 Ti KO 30 b. 2 s.</p>
- <canvas class="hhjj" width="200" height="100"></canvas>
- <br>
-    <button class="nnnn">buy</button>
- <button class="mmmm">sell</button>
- <div class="oooo">check</div>
- <br>
- <p>1000000$ garage  + 4 place</p>
- <canvas class="garage" width="200" height="100"></canvas>
- <br>
- <button class="jb">buy</button>
- <br>
- <p>10000000$ Mining ferma 50 b. 2.s</p>
- <canvas class="ferma"width="200" height="100"></canvas>
- <br>
-    <button class="nnnnn">buy</button>
- <button class="mmmmm">sell</button>
- <div class="eee">check</div>
- <br>
- <p>10000$ asic miner </p>
- <canvas class="qqq" width="200" height="100" ></canvas>
- <br>
- <button class="b1" >buy</button>
- <button class="b2" >sell</button>
- <div class="b3" >check</div>
- </center>
-    <script>
-    
-const canvas = document.querySelector("canvas");
-const cbn = document.querySelector(".garage")
-const ckc = document.querySelector(".ferma")
-const cbc = ckc.getContext("2d")
-const ctv = cbn.getContext("2d")
-const backgroundImg5 = document.createElement("img")
-backgroundImg5.src="https://360view.hum3d.com/zoom/Tools/Mining_Farm_1000_0002.jpg"
-const mmm = document.querySelector(".qqq")
-const non = mmm.getContext("2d")
-const context = canvas.getContext("2d");
-const cvs = document.querySelector(".hhhh")
-const ctx = cvs.getContext("2d")
-const backgroundImg1 = document.createElement("img")
-const backgroundImg4 = document.createElement("img")
-const backgroundImg6 = document.createElement("img")
-backgroundImg6.src = "data:image/jpeg;base64,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";
-backgroundImg4.src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMRMjuKqYmOUaDsVqln_srbCZG_hKo9jd-Zg&usqp=CAU"
-backgroundImg1.src= "data:image/jpeg;base64,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  "
-const backgroundImg = document.createElement("img");
-const cvs3 = document.querySelector(".cccccc")
-backgroundImg.src="https://hotline.ua/img/tx/177/1775455255.jpg"
-const cbs = document.querySelector(".hhjj")
-const ctc = cbs.getContext("2d")
-const ctx3 = cvs3.getContext("2d")
-backgroundImg2 = document.createElement("img")
-const backgroundImg3 = document.createElement("img")
-backgroundImg3.src = "https://shop.clarioncomputers.in/wp-content/uploads/2021/08/ASUS-KO-GEFORCE-RTX-3060-V2-OC-12GB-GDDR6-LHR-GRAPHICS-CARD-3.jpg"
-backgroundImg2.src = "https://static.turbosquid.com/Preview/2020/10/30__23_25_13/NvidiaGeForceRTX3090FoundersEditionvray3dmodel001.jpgEEE08013-CE96-4B46-AC3B-C62F2234B776Large.jpg";
-let money = 100
-let gtx = 0 
-let mb = 0
-let bitcoin = 0
-let gtx1 = 0 
-let gtx2 = 0
-let gtx3 = 0
-let gtx4 = 0  
-let gtx5 = 0
-let mesto = 4
-
-
-
-document.querySelector(".b1").onclick = myfunx
-function myfunx (){
-    if (money > 9999){
-        gtx5 = gtx5 + 1
-        money = money - 10000
-        mb = mb + 10
-        alert ("you buy this item")
-    } else if (money===10000){
-        mb = mb + 10
-        gtx5 = gtx5 + 1
-        money = money - 10000
-        alert("you buy this item")
-    }else if (money < 10000){
-        alert("you dont have money")
-    } 
-    if (gtx5 === mesto){
-        alert ("you cant buy this item because you dont have place")
-        gtx5 = gtx5 - 1
-        money = money + 10000
-    }
-
-}
-  document.querySelector(".b2").onclick = fon
-  function fon (){
-    if (gtx5 > 0){
-        gtx5 = gtx5 - 1
-        money = money + 10000
-        mb = mb - 15
-        alert ("you sell this item")
-    } else if (gtx5 === 0){
-        alert ("you dont have this item")
-    }
-
-  }
-
-
-
-document.querySelector(".jb").onclick = myfuji
-function myfuji(){
-    if (money === 1000000){
-    mesto = mesto + 4
-    money = money - 1000000
-    alert("you buy garage you have " + mesto + " place")
-    } else if(money > 999999){
-    mesto = mesto + 4
-    money = money - 1000000
-    alert("you buy garage you have " + mesto + " place")
-    } else if (money < 1000000){
-        alert ("you dont have money")
-    }
-}
-
-   
-   
-   
-   
-   
-document.querySelector(".mmmmm").onclick = funcjjjjj
-function funcjjjjj (){
-    if (gtx4 > 0){
-        gtx4 = gtx4 - 1
-        money = money + 100000
-        mb = mb - 50
-        alert ("you sell this item")
-    } else if (gtx4 === 0){
-        alert ("you dont have this item")
-    }
-
-}
-
- 
-document.querySelector(".nnnnn").onclick = funck1111
-function funck1111 (){
-    if (money > 9999999){
-        gtx4 = gtx4 + 1
-        money = money - 100000
-        mb = mb + 50
-        alert ("you buy this item")
-    } else if (money===10000000){
-        mb = mb + 50
-        gtx4 = gtx4 + 1
-        money = money - 10000000
-        alert("you buy this item")
-    }else if (money < 10000000){
-        alert("you dont have money")
-    } 
-    if (gtx4 === mesto){
-        alert ("you cant buy this item because you dont have place")
-        gtx4 = gtx4 - 1
-        money = money + 10000000
-    }
-
-}  
-
-
-
-   
-   
-   
-   
-document.querySelector(".mmmm").onclick = funcjjjj
-function funcjjjj (){
-    if (gtx3 > 0){
-        gtx3 = gtx3 - 1
-        money = money + 100000
-        mb = mb - 30
-        alert ("you sell this item")
-    } else if (gtx3 === 0){
-        alert ("you dont have this item")
-    }
-
-}
-
- 
-document.querySelector(".nnnn").onclick = funck111
-function funck111 (){
-    if (money > 99999){
-        gtx3 = gtx3 + 1
-        money = money - 100000
-        mb = mb + 30
-        alert ("you buy this item")
-    } else if (money===100000){
-        mb = mb + 30
-        gtx3 = gtx3 + 1
-        money = money - 100000
-        alert("you buy this item")
-    }else if (money < 100000){
-        alert("you dont have money")
-    } 
-    if (gtx3 === mesto){
-        alert ("you cant buy this item because you dont have place")
-        gtx3 = gtx3 - 1
-        money = money + 100000
-    }
-
-}  
-
- 
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-document.querySelector(".ssss").onclick = funcjjj
-function funcjjj (){
-    if (gtx2 > 0){
-        gtx2 = gtx2 - 1
-        money = money + 10000
-        mb = mb - 15
-        alert ("you sell this item")
-    } else if (gtx2 === 0){
-        alert ("you dont have this item")
-    }
-
-}
-
-  let hhhh = 15
-document.querySelector(".bbbb").onclick = funck1 
-function funck1 (){
-    if (money > 9999){
-        
-        gtx2 = gtx2 + 1
-        
-        money = money - 10000
-        
-        mb = mb + hhhh
-        
-        alert ("you buy this item")
-        
-    } else if (money===10000){
-        
-        mb = mb + hhhh
-        
-        gtx2 = gtx2 + 1
-        
-        money = money - 10000
-        
-        alert("you buy this item")
-        
-    }else if (money < 10000){
-        alert("you dont have money")
-    }
-    if (gtx2 === mesto){
-        alert ("you cant buy this item because you dont have place")
-        gtx2 = gtx2 - 1
-        money = money + 10000
-    }
-}  
-
-
-   
-   
-document.querySelector(".jjj").onclick = funcjj
-function funcjj (){
-    if (gtx1 > 0){
-        gtx1 = gtx1 - 1
-        money = money + 1000
-        mb = mb - 5
-        alert ("you sell this item")
-    } else if (gtx1 === 0){
-        alert ("you dont have this item")
-    }
-
-}
-
-  
-document.querySelector(".kkk").onclick = func1 
-function func1 (){
-    if (money > 999){
-        gtx1 = gtx1 + 1
-        money = money - 1000
-        mb = mb + 5
-        alert ("you buy this item")
-    } else if (money===1000){
-        mb = mb + 1000
-        gtx1 = gtx1 + 1
-        money = money - 1000
-        alert("you buy this item")
-    }else if (money < 1000){
-        alert("you dont have money")
-    }
-    if (gtx1 === mesto){
-        alert ("you cant buy this item because you dont have place")
-        gtx1 = gtx1 - 1
-        money = money + 1000
-    }
-}  
-
-
-
-  
-  
-
-document.querySelector(".buy").onclick = fu 
-function fu (){
-    if (money > 49){
-        gtx = gtx + 1
-        money = money - 50
-        mb = mb + 1
-        alert ("you buy this item")
-    } else if (money===50){
-        mb = mb + 1
-        gtx = gtx + 1 
-        money = money - 50
-        alert("you buy this item")
-    } else if (money < 50){
-        alert("you dont have money")
-    } 
-    if (gtx === mesto){
-        alert ("you cant buy this item because you dont have place")
-        gtx = gtx - 1
-        money = money + 50
-    }
-   
-   
-}
-
-
-
-
-
-document.querySelector(".sell").onclick = fun 
-function fun () {
-    if (gtx > 0 ){
-        gtx = gtx - 1 
-        money = money + 1000
-        mb = mb - 1
-        alert("you sell this item")
-    } else if (gtx === 0){
-        alert("you dont have this item")
-    } 
-    
-    
-}
-
-
-
-document.querySelector(".btc").onclick = btc
-let hh
-function btc (){
-    hh = bitcoin * 10
-    money = money + hh
-    bitcoin = bitcoin - bitcoin
-  
-}
-
-var time = setInterval("myFunc_1()",2000)
-function myFunc_1 (){
-    
-
-    if (gtx > 0 ){
-    
-        bitcoin = bitcoin + mb
-    
-      
-    } 
-   if (gtx1 > 0 ){
-    
-        bitcoin = bitcoin + mb
-    
-      
-    } 
-    if (gtx2 > 0){
-        bitcoin = bitcoin + mb
-    }
-    
-    
-   if (gtx3 > 0 ){
-       bitcoin = bitcoin + mb
-   }
-   
-   
-   if (gtx4 > 0){
-       bitcoin = bitcoin + mb
-   }
-   if (gtx5 >0){
-       bitcoin = bitcoin + mb
-   }
-}
-document.querySelector(".sell").onclick = fun 
-function fun () {
-    if (gtx > 0 ){
-        gtx = gtx - 1 
-        money = money + 50
-        mb = mb - 1
-        alert("you sell this item")
-    } else if (gtx === 0){
-        alert("you dont have this item")
-    } 
-
-}
-
-
-
-
-function draw() {
-    
-  context.drawImage(backgroundImg, 0, -40, 200, 160);
-  
-   ctx.drawImage(backgroundImg1,0,0,180,100)
-   
-   ctx3.drawImage(backgroundImg2,0,0,200,100)
-   
-   ctc.drawImage(backgroundImg3,0,-20,200,140)
-   
-   ctv.drawImage(backgroundImg4,0,0,200,100)
-   
-   cbc.drawImage(backgroundImg5,0,-20,200,140)
-   non.drawImage(backgroundImg6,0,0,200,100)
-
-    
-
-var myelement = document.querySelector(".b3");
-    myelement.innerHTML= gtx5;
- var myelement = document.querySelector(".eee");
-    myelement.innerHTML= gtx4;
- var myelement = document.querySelector(".ccccc");
-    myelement.innerHTML= gtx2;
- var myelement = document.querySelector(".oooo");
-    myelement.innerHTML= gtx3;
- var myelement = document.querySelector(".ccc");
-    myelement.innerHTML= gtx1;
- var myelement = document.querySelector(".check");
-    myelement.innerHTML= gtx;
-    var myelement = document.querySelector(".div1");
-    myelement.innerHTML= money;
-    var myelement = document.querySelector(".div");
-    
-    myelement.innerHTML= bitcoin;
- 
-  
-}
-
-function loop() {
-  requestAnimationFrame(loop);
-  
-  draw();
-}
-
-loop();
-
-    </script>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>🔥 Mining Simulator 🔥</title>
     <style>
-    
-        html {
-            color: red;
-            background-image: url('https://www.ixbt.com/img/r30/00/02/21/50/card.jpg');
+        /* Глобальные стили */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
+        
+        body {
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            color: white;
+            font-family: 'Orbitron', 'Arial', sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        @font-face {
+            font-family: 'Orbitron';
+            src: url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+        }
+        
+        /* Анимации */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes glow {
+            0% { text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #0073e6, 0 0 20px #0073e6; }
+            50% { text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #0073e6, 0 0 40px #0073e6; }
+            100% { text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #0073e6, 0 0 20px #0073e6; }
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        @keyframes rainbow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        /* Основные элементы */
+        h1 {
+            font-size: 3rem;
+            margin: 20px 0;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            animation: glow 2s infinite, float 4s ease-in-out infinite;
+            background: linear-gradient(90deg, #ff00cc, #3333ff, #00ccff, #ff00cc);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: rainbow 4s ease infinite;
+        }
+        
+        .info-panel {
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 500px;
+            border: 2px solid #00ffff;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+            transition: all 0.3s ease;
+        }
+        
+        .info-panel:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.8);
+        }
+        
+        h3 {
+            font-size: 1.5rem;
+            margin: 10px 0;
+            color: #00ffff;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+        }
+        
+        .value-display {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #00ff00;
+            text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+        }
+        
         button {
-            background-color: green;
-            color: yellow;
+            background: linear-gradient(45deg, #ff00cc, #3333ff);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            margin: 10px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
         }
-        .cccccc{
-            background-color: black;
+        
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+            background: linear-gradient(45deg, #3333ff, #ff00cc);
+        }
+        
+        button:active {
+            transform: translateY(1px);
+        }
+        
+        button::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                to bottom right,
+                rgba(255, 255, 255, 0.3),
+                rgba(255, 255, 255, 0)
+            );
+            transform: rotate(30deg);
+            transition: all 0.5s ease;
+        }
+        
+        button:hover::after {
+            left: 100%;
+        }
+        
+        canvas {
+            background: radial-gradient(circle, #1a1a1a, #000);
+            border-radius: 15px;
+            margin: 20px auto;
+            border: 3px solid #444;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.7);
+            transition: all 0.3s ease;
+            max-width: 100%;
+        }
+        
+        canvas:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 40px rgba(0, 255, 255, 0.4);
+        }
+        
+        .item-container {
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 30px auto;
+            max-width: 600px;
+            border: 1px solid #444;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .item-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                45deg,
+                transparent 25%,
+                rgba(255, 255, 255, 0.05) 25%,
+                rgba(255, 255, 255, 0.05) 50%,
+                transparent 50%,
+                transparent 75%,
+                rgba(255, 255, 255, 0.05) 75%,
+                rgba(255, 255, 255, 0.05)
+            );
+            background-size: 50px 50px;
+            opacity: 0.3;
+            pointer-events: none;
+        }
+        
+        .item-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 255, 255, 0.2);
+        }
+        
+        .item-container p {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: #00ffff;
+        }
+        
+        .item-count {
+            display: inline-block;
+            min-width: 30px;
+            background: rgba(0, 255, 255, 0.2);
+            padding: 5px 10px;
+            border-radius: 50px;
+            margin-left: 10px;
+            font-weight: bold;
+            color: #00ffff;
+        }
+        
+        /* Эффекты частиц */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .info-panel {
+                padding: 15px;
+            }
+            
+            button {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+            
+            canvas {
+                width: 100%;
+            }
         }
     </style>
-    </body>
+</head>
+<body>
+    <!-- Эффект частиц -->
+    <div class="particles" id="particles-js"></div>
+    
+    <h1>🚀 Mining Simulator 🚀</h1>
+    
+    <!-- Основная информация о деньгах и биткоинах -->
+    <div class="info-panel">
+        <h3>💰 Money: <span class="money-display value-display">100</span>$</h3>
+        <h3>🪙 Bitcoins: <span class="bitcoin-display value-display">0</span></h3>
+        <h3>⚡ Mining Power: <span class="power-display value-display">0</span></h3>
+        <h3>📦 Storage: <span class="places-count value-display">4</span>/<span class="places-total value-display">4</span></h3>
+    </div>
+    
+    <button class="sell-btc">💸 SELL ALL BTC 💸</button>
+    
+    <!-- Первый предмет для покупки -->
+    <div class="item-container">
+        <p>💰 50$ | RTX2080Ti | ⚡ 1 | 📦 1</p>
+        <canvas width="200" height="100"></canvas>
+        <div>
+            <button class="buy-btn">BUY (50$)</button>
+            <button class="sell-btn">SELL (50$)</button>
+            <span>Owned: <span class="item-count">0</span></span>
+        </div>
+    </div>
+    
+    <!-- Второй предмет для покупки -->
+    <div class="item-container">
+        <p>💰 1000$ | QUADRO RTX4000 | ⚡ 5 | 📦 1</p>
+        <canvas width="200" height="100"></canvas>
+        <div>
+            <button class="buy-btn-1">BUY (1000$)</button>
+            <button class="sell-btn-1">SELL (1000$)</button>
+            <span>Owned: <span class="item-count-1">0</span></span>
+        </div>
+    </div>
+    
+    <!-- Третий предмет для покупки -->
+    <div class="item-container">
+        <p>💰 10000$ | RTX 3090 | ⚡ 15 | 📦 1</p>
+        <canvas width="200" height="100"></canvas>
+        <div>
+            <button class="buy-btn-2">BUY (10000$)</button>
+            <button class="sell-btn-2">SELL (10000$)</button>
+            <span>Owned: <span class="item-count-2">0</span></span>
+        </div>
+    </div>
+    
+    <!-- Четвертый предмет для покупки -->
+    <div class="item-container">
+        <p>💰 100000$ | ASUS RTX 3060 Ti | ⚡ 30 | 📦 1</p>
+        <canvas width="200" height="100"></canvas>
+        <div>
+            <button class="buy-btn-3">BUY (100000$)</button>
+            <button class="sell-btn-3">SELL (100000$)</button>
+            <span>Owned: <span class="item-count-3">0</span></span>
+        </div>
+    </div>
+    
+    <!-- Гараж (увеличение места) -->
+    <div class="item-container">
+        <p>💰 1000000$ | 🏠 Garage | +4 📦</p>
+        <canvas width="200" height="100"></canvas>
+        <div>
+            <button class="buy-garage">BUY GARAGE (1000000$)</button>
+        </div>
+    </div>
+    
+    <!-- Пятый предмет для покупки -->
+    <div class="item-container">
+        <p>💰 10000000$ | 🏭 Mining Farm | ⚡ 50 | 📦 1</p>
+        <canvas width="200" height="100"></canvas>
+        <div>
+            <button class="buy-btn-4">BUY (10000000$)</button>
+            <button class="sell-btn-4">SELL (10000000$)</button>
+            <span>Owned: <span class="item-count-4">0</span></span>
+        </div>
+    </div>
+    
+    <!-- Шестой предмет для покупки -->
+    <div class="item-container">
+        <p>💰 10000$ | ⛏️ ASIC Miner | ⚡ 10 | 📦 1</p>
+        <canvas width="200" height="100"></canvas>
+        <div>
+            <button class="buy-btn-5">BUY (10000$)</button>
+            <button class="sell-btn-5">SELL (10000$)</button>
+            <span>Owned: <span class="item-count-5">0</span></span>
+        </div>
+    </div>
 
+    <script>
+    // Игровые переменные
+    let money = 100;
+    let bitcoin = 0;
+    let miningPower = 0;
+    let places = 4;
+    
+    // Количество оборудования
+    let gtx2080ti = 0;
+    let quadroRTX4000 = 0;
+    let rtx3090 = 0;
+    let rtx3060ti = 0;
+    let miningFarm = 0;
+    let asicMiner = 0;
+    
+    // Константы
+    const GTX2080TI_POWER = 1;
+    const QUADRO_RTX4000_POWER = 5;
+    const RTX3090_POWER = 15;
+    const RTX3060TI_POWER = 30;
+    const MINING_FARM_POWER = 50;
+    const ASIC_MINER_POWER = 10;
+    
+    const GTX2080TI_PRICE = 50;
+    const QUADRO_RTX4000_PRICE = 1000;
+    const RTX3090_PRICE = 10000;
+    const RTX3060TI_PRICE = 100000;
+    const GARAGE_PRICE = 1000000;
+    const MINING_FARM_PRICE = 10000000;
+    const ASIC_MINER_PRICE = 10000;
+    
+    // Обновление интерфейса
+    function updateUI() {
+        document.querySelector('.money-display').textContent = money;
+        document.querySelector('.bitcoin-display').textContent = bitcoin;
+        document.querySelector('.power-display').textContent = miningPower;
+        document.querySelector('.places-count').textContent = getTotalItems();
+        document.querySelector('.places-total').textContent = places;
+        
+        document.querySelector('.item-count').textContent = gtx2080ti;
+        document.querySelector('.item-count-1').textContent = quadroRTX4000;
+        document.querySelector('.item-count-2').textContent = rtx3090;
+        document.querySelector('.item-count-3').textContent = rtx3060ti;
+        document.querySelector('.item-count-4').textContent = miningFarm;
+        document.querySelector('.item-count-5').textContent = asicMiner;
+        
+        // Анимация при изменении значений
+        animateValueChanges();
+    }
+    
+    // Анимация изменения значений
+    function animateValueChanges() {
+        const elements = document.querySelectorAll('.value-display');
+        elements.forEach(el => {
+            el.classList.add('pulse-animation');
+            setTimeout(() => {
+                el.classList.remove('pulse-animation');
+            }, 500);
+        });
+    }
+    
+    // Подсчет общего количества оборудования
+    function getTotalItems() {
+        return gtx2080ti + quadroRTX4000 + rtx3090 + rtx3060ti + miningFarm + asicMiner;
+    }
+    
+    // Проверка свободного места
+    function hasFreeSpace() {
+        return getTotalItems() < places;
+    }
+    
+    // Покупка оборудования
+    function buyItem(itemType, price, power) {
+        if (money >= price) {
+            if (hasFreeSpace()) {
+                money -= price;
+                miningPower += power;
+                
+                switch(itemType) {
+                    case 'gtx2080ti': gtx2080ti++; break;
+                    case 'quadroRTX4000': quadroRTX4000++; break;
+                    case 'rtx3090': rtx3090++; break;
+                    case 'rtx3060ti': rtx3060ti++; break;
+                    case 'miningFarm': miningFarm++; break;
+                    case 'asicMiner': asicMiner++; break;
+                }
+                
+                showNotification('✅ Purchased successfully!');
+                updateUI();
+                playSound('buy');
+            } else {
+                showNotification('❌ Not enough space! Buy a garage.');
+                playSound('error');
+            }
+        } else {
+            showNotification('❌ Not enough money!');
+            playSound('error');
+        }
+    }
+    
+    // Продажа оборудования
+    function sellItem(itemType, price, power) {
+        let hasItem = false;
+        
+        switch(itemType) {
+            case 'gtx2080ti': hasItem = gtx2080ti > 0; if (hasItem) gtx2080ti--; break;
+            case 'quadroRTX4000': hasItem = quadroRTX4000 > 0; if (hasItem) quadroRTX4000--; break;
+            case 'rtx3090': hasItem = rtx3090 > 0; if (hasItem) rtx3090--; break;
+            case 'rtx3060ti': hasItem = rtx3060ti > 0; if (hasItem) rtx3060ti--; break;
+            case 'miningFarm': hasItem = miningFarm > 0; if (hasItem) miningFarm--; break;
+            case 'asicMiner': hasItem = asicMiner > 0; if (hasItem) asicMiner--; break;
+        }
+        
+        if (hasItem) {
+            money += price;
+            miningPower -= power;
+            showNotification('💰 Sold successfully!');
+            updateUI();
+            playSound('sell');
+        } else {
+            showNotification('❌ You don\'t own this item!');
+            playSound('error');
+        }
+    }
+    
+    // Покупка гаража
+    function buyGarage() {
+        if (money >= GARAGE_PRICE) {
+            money -= GARAGE_PRICE;
+            places += 4;
+            showNotification('🏠 Garage purchased! +4 storage space');
+            updateUI();
+            playSound('upgrade');
+        } else {
+            showNotification('❌ Not enough money for garage!');
+            playSound('error');
+        }
+    }
+    
+    // Продажа всех биткоинов
+    function sellAllBitcoin() {
+        if (bitcoin > 0) {
+            const btcValue = bitcoin * 10;
+            money += btcValue;
+            showNotification(`💰 Sold ${bitcoin} BTC for ${btcValue}$!`);
+            bitcoin = 0;
+            updateUI();
+            playSound('cash');
+        } else {
+            showNotification('❌ No bitcoin to sell!');
+            playSound('error');
+        }
+    }
+    
+    // Майнинг биткоинов
+    function mineBitcoin() {
+        if (miningPower > 0) {
+            bitcoin += miningPower;
+            updateUI();
+            
+            // Случайная анимация майнинга
+            if (Math.random() > 0.7) {
+                createMiningParticle();
+            }
+        }
+    }
+    
+    // Уведомления
+    function showNotification(message) {
+        const notification = document.createElement('div');
+        notification.className = 'notification';
+        notification.textContent = message;
+        notification.style.position = 'fixed';
+        notification.style.top = '20px';
+        notification.style.left = '50%';
+        notification.style.transform = 'translateX(-50%)';
+        notification.style.backgroundColor = 'rgba(0,0,0,0.8)';
+        notification.style.color = '#fff';
+        notification.style.padding = '10px 20px';
+        notification.style.borderRadius = '50px';
+        notification.style.boxShadow = '0 0 20px rgba(0,255,255,0.5)';
+        notification.style.zIndex = '1000';
+        notification.style.animation = 'float 2s ease-in-out';
+        
+        document.body.appendChild(notification);
+        
+        setTimeout(() => {
+            notification.style.opacity = '0';
+            setTimeout(() => {
+                document.body.removeChild(notification);
+            }, 500);
+        }, 3000);
+    }
+    
+    // Создание частиц майнинга
+    function createMiningParticle() {
+        const particle = document.createElement('div');
+        particle.className = 'mining-particle';
+        particle.style.position = 'fixed';
+        particle.style.width = '10px';
+        particle.style.height = '10px';
+        particle.style.backgroundColor = '#00ffff';
+        particle.style.borderRadius = '50%';
+        particle.style.boxShadow = '0 0 10px #00ffff';
+        particle.style.zIndex = '100';
+        particle.style.left = Math.random() * 100 + 'vw';
+        particle.style.top = '0';
+        particle.style.animation = `fall ${Math.random() * 2 + 1}s linear forwards`;
+        
+        document.body.appendChild(particle);
+        
+        setTimeout(() => {
+            document.body.removeChild(particle);
+        }, 2000);
+    }
+    
+    // Звуковые эффекты
+    function playSound(type) {
+        // В реальном приложении здесь бы воспроизводились звуковые файлы
+        console.log(`Playing ${type} sound`);
+    }
+    
+    // Инициализация игры
+    function initGame() {
+        updateUI();
+        setInterval(mineBitcoin, 2000);
+        
+        // Настройка обработчиков событий
+        document.querySelector('.buy-btn').addEventListener('click', () => buyItem('gtx2080ti', GTX2080TI_PRICE, GTX2080TI_POWER));
+        document.querySelector('.sell-btn').addEventListener('click', () => sellItem('gtx2080ti', GTX2080TI_PRICE, GTX2080TI_POWER));
+        
+        document.querySelector('.buy-btn-1').addEventListener('click', () => buyItem('quadroRTX4000', QUADRO_RTX4000_PRICE, QUADRO_RTX4000_POWER));
+        document.querySelector('.sell-btn-1').addEventListener('click', () => sellItem('quadroRTX4000', QUADRO_RTX4000_PRICE, QUADRO_RTX4000_POWER));
+        
+        document.querySelector('.buy-btn-2').addEventListener('click', () => buyItem('rtx3090', RTX3090_PRICE, RTX3090_POWER));
+        document.querySelector('.sell-btn-2').addEventListener('click', () => sellItem('rtx3090', RTX3090_PRICE, RTX3090_POWER));
+        
+        document.querySelector('.buy-btn-3').addEventListener('click', () => buyItem('rtx3060ti', RTX3060TI_PRICE, RTX3060TI_POWER));
+        document.querySelector('.sell-btn-3').addEventListener('click', () => sellItem('rtx3060ti', RTX3060TI_PRICE, RTX3060TI_POWER));
+        
+        document.querySelector('.buy-garage').addEventListener('click', buyGarage);
+        
+        document.querySelector('.buy-btn-4').addEventListener('click', () => buyItem('miningFarm', MINING_FARM_PRICE, MINING_FARM_POWER));
+        document.querySelector('.sell-btn-4').addEventListener('click', () => sellItem('miningFarm', MINING_FARM_PRICE, MINING_FARM_POWER));
+        
+        document.querySelector('.buy-btn-5').addEventListener('click', () => buyItem('asicMiner', ASIC_MINER_PRICE, ASIC_MINER_POWER));
+        document.querySelector('.sell-btn-5').addEventListener('click', () => sellItem('asicMiner', ASIC_MINER_PRICE, ASIC_MINER_POWER));
+        
+        document.querySelector('.sell-btc').addEventListener('click', sellAllBitcoin);
+        
+        // Добавляем стили для анимации
+        const style = document.createElement('style');
+        style.textContent = `
+            .pulse-animation {
+                animation: pulse 0.5s ease-in-out;
+            }
+            
+            @keyframes fall {
+                to { transform: translateY(100vh); opacity: 0; }
+            }
+            
+            .notification {
+                animation: float 2s ease-in-out;
+            }
+        `;
+        document.head.appendChild(style);
+    }
+    
+    // Запуск игры при загрузке страницы
+    window.addEventListener('DOMContentLoaded', initGame);
+    </script>
+</body>
 </html>
