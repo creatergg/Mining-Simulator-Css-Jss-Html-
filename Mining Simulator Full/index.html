@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>🔥 Mining Simulator 🔥</title>
+    <style>
+        /* Глобальные стили */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            color: white;
+            font-family: 'Orbitron', 'Arial', sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        @font-face {
+            font-family: 'Orbitron';
+            src: url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+        }
+        
+        /* Анимации */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes glow {
+            0% { text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #0073e6, 0 0 20px #0073e6; }
+            50% { text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #0073e6, 0 0 40px #0073e6; }
+            100% { text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #0073e6, 0 0 20px #0073e6; }
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        @keyframes rainbow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        /* Основные элементы */
+        h1 {
+            font-size: 3rem;
+            margin: 20px 0;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            animation: glow 2s infinite, float 4s ease-in-out infinite;
+            background: linear-gradient(90deg, #ff00cc, #3333ff, #00ccff, #ff00cc);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: rainbow 4s ease infinite;
+        }
+        
+        .info-panel {
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 500px;
+            border: 2px solid #00ffff;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+            transition: all 0.3s ease;
+        }
+        
+        .info-panel:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.8);
+        }
+        
+        h3 {
+            font-size: 1.5rem;
+            margin: 10px 0;
+            color: #00ffff;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+        }
+        
+        .value-display {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #00ff00;
+            text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+        }
+        
+        button {
+            background: linear-gradient(45deg, #ff00cc, #3333ff);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            margin: 10px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+            background: linear-gradient(45deg, #3333ff, #ff00cc);
+        }
+        
+        button:active {
+            transform: translateY(1px);
+        }
+        
+        button::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                to bottom right,
+                rgba(255, 255, 255, 0.3),
+                rgba(255, 255, 255, 0)
+            );
+            transform: rotate(30deg);
+            transition: all 0.5s ease;
+        }
+        
+        button:hover::after {
+            left: 100%;
+        }
+        
+        canvas {
+            background: radial-gradient(circle, #1a1a1a, #000);
+            border-radius: 15px;
+            margin: 20px auto;
+            border: 3px solid #444;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.7);
+            transition: all 0.3s ease;
+            max-width: 100%;
+        }
+        
+        canvas:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 40px rgba(0, 255, 255, 0.4);
+        }
+        
+        .item-container {
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 30px auto;
+            max-width: 600px;
+            border: 1px solid #444;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .item-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                45deg,
+                transparent 25%,
+                rgba(255, 255, 255, 0.05) 25%,
+                rgba(255, 255, 255, 0.05) 50%,
+                transparent 50%,
+                transparent 75%,
+                rgba(255, 255, 255, 0.05) 75%,
+                rgba(255, 255, 255, 0.05)
+            );
+            background-size: 50px 50px;
+            opacity: 0.3;
+            pointer-events: none;
+        }
+        
+        .item-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 255, 255, 0.2);
+        }
+        
+        .item-container p {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: #00ffff;
+        }
+        
+        .item-count {
+            display: inline-block;
+            min-width: 30px;
+            background: rgba(0, 255, 255, 0.2);
+            padding: 5px 10px;
+            border-radius: 50px;
+            margin-left: 10px;
+            font-weight: bold;
+            color: #00ffff;
+        }
+        
+        /* Эффекты частиц */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .info-panel {
+                padding: 15px;
+            }
+            
+            button {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+            
+            canvas {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Эффект частиц -->
+    <div class="particles" id="particles-js"></div>
+    
+    <h1>🚀 Mining Simulator 🚀</h1>
+    
+    <!-- Основная информация о деньгах и биткоинах -->
+    <div class="info-panel">
+        <h3>💰 Money: <span class="money-display value-display">100</span>$</h3>
+        <h3>🪙 Bitcoins: <span class="bitcoin-display value-display">0</span></h3>
+        <h3>⚡ Mining Power: <span class="power-display value-display">0</span></h3>
+        <h3>📦 Storage: <span class="places-count value-display">4</span>/<span class="places-total value-display">4</span></h3>
+    </div>
+    
+    <button class="sell-btc">💸 SELL ALL BTC 💸</button>
+    
+    <!-- Первый предмет для покупки -->
+    <div class="item-container">
+        <p>💰 50$ | RTX2080Ti | ⚡ 1 | 📦 1</p>
+        <canvas width="251" height="201" class="gpu-canvas" id="canvas-2080"></canvas>
+        <div>
+            <button class="buy-btn">BUY (50$)</button>
+            <button class="sell-btn">SELL (50$)</button>
+            <span>Owned: <span class="item-count">0</span></span>
+        </div>
+    </div>
+    
+    <!-- Второй предмет для покупки -->
+    <div class="item-container">
+        <p>💰 1000$ | QUADRO RTX4000 | ⚡ 5 | 📦 1</p>
+        <canvas width="500" height="500" class="gpu-canvas" id="canvas-4000"></canvas>
+        <div>
+            <button class="buy-btn-1">BUY (1000$)</button>
+            <button class="sell-btn-1">SELL (1000$)</button>
+            <span>Owned: <span class="item-count-1">0</span></span>
+        </div>
+    </div>
+    
+    <!-- Третий предмет для покупки -->
+    <div class="item-container">
+        <p>💰 10000$ | RTX 3090 | ⚡ 15 | 📦 1</p>
+        <canvas width="300" height="150" class="gpu-canvas" id="canvas-3090"></canvas>
+        <div>
+            <button class="buy-btn-2">BUY (10000$)</button>
+            <button class="sell-btn-2">SELL (10000$)</button>
+            <span>Owned: <span class="item-count-2">0</span></span>
+        </div>
+    </div>
+    
+    <!-- Четвертый предмет для покупки -->
+    <div class="item-container">
+        <p>💰 100000$ | ASUS RTX 3060 Ti | ⚡ 30 | 📦 1</p>
+        <canvas width="500" height="500" class="gpu-canvas" id="canvas-3060"></canvas>
+        <div>
+            <button class="buy-btn-3">BUY (100000$)</button>
+            <button class="sell-btn-3">SELL (100000$)</button>
+            <span>Owned: <span class="item-count-3">0</span></span>
+        </div>
+    </div>
+    
+    <!-- Гараж (увеличение места) -->
+    <div class="item-container">
+        <p>💰 1000000$ | 🏠 Garage | +4 📦</p>
+        <canvas width="261" height="191" class="garage-canvas" id="canvas-garage"></canvas>
+        <div>
+            <button class="buy-garage">BUY GARAGE (1000000$)</button>
+        </div>
+    </div>
+    
+    <!-- Пятый предмет для покупки -->
+    <div class="item-container">
+        <p>💰 10000000$ | 🏭 Mining Farm | ⚡ 50 | 📦 1</p>
+        <canvas width="300" height="168" class="farm-canvas" id="canvas-farm"></canvas>
+        <div>
+            <button class="buy-btn-4">BUY (10000000$)</button>
+            <button class="sell-btn-4">SELL (10000000$)</button>
+            <span>Owned: <span class="item-count-4">0</span></span>
+        </div>
+    </div>
+    
+    <!-- Шестой предмет для покупки -->
+    <div class="item-container">
+        <p>💰 10000$ | ⛏️ ASIC Miner | ⚡ 10 | 📦 1</p>
+        <canvas width="225" height="224" class="asic-canvas" id="canvas-asic"></canvas>
+        <div>
+            <button class="buy-btn-5">BUY (10000$)</button>
+            <button class="sell-btn-5">SELL (10000$)</button>
+            <span>Owned: <span class="item-count-5">0</span></span>
+        </div>
+    </div>
+
+    <script>
+    // Игровые переменные
+    let money = 100;
+    let bitcoin = 0;
+    let miningPower = 0;
+    let places = 4;
+    
+    // Количество оборудования
+    let gtx2080ti = 0;
+    let quadroRTX4000 = 0;
+    let rtx3090 = 0;
+    let rtx3060ti = 0;
+    let miningFarm = 0;
+    let asicMiner = 0;
+    
+    // Константы
+    const GTX2080TI_POWER = 1;
+    const QUADRO_RTX4000_POWER = 5;
+    const RTX3090_POWER = 15;
+    const RTX3060TI_POWER = 30;
+    const MINING_FARM_POWER = 50;
+    const ASIC_MINER_POWER = 10;
+    
+    const GTX2080TI_PRICE = 50;
+    const QUADRO_RTX4000_PRICE = 1000;
+    const RTX3090_PRICE = 10000;
+    const RTX3060TI_PRICE = 100000;
+    const GARAGE_PRICE = 1000000;
+    const MINING_FARM_PRICE = 10000000;
+    const ASIC_MINER_PRICE = 10000;
+    
+    // Обновление интерфейса
+    function updateUI() {
+        document.querySelector('.money-display').textContent = money;
+        document.querySelector('.bitcoin-display').textContent = bitcoin;
+        document.querySelector('.power-display').textContent = miningPower;
+        document.querySelector('.places-count').textContent = getTotalItems();
+        document.querySelector('.places-total').textContent = places;
+        
+        document.querySelector('.item-count').textContent = gtx2080ti;
+        document.querySelector('.item-count-1').textContent = quadroRTX4000;
+        document.querySelector('.item-count-2').textContent = rtx3090;
+        document.querySelector('.item-count-3').textContent = rtx3060ti;
+        document.querySelector('.item-count-4').textContent = miningFarm;
+        document.querySelector('.item-count-5').textContent = asicMiner;
+        
+        // Анимация при изменении значений
+        animateValueChanges();
+    }
+    
+    // Анимация изменения значений
+    function animateValueChanges() {
+        const elements = document.querySelectorAll('.value-display');
+        elements.forEach(el => {
+            el.classList.add('pulse-animation');
+            setTimeout(() => {
+                el.classList.remove('pulse-animation');
+            }, 500);
+        });
+    }
+    
+    // Подсчет общего количества оборудования
+    function getTotalItems() {
+        return gtx2080ti + quadroRTX4000 + rtx3090 + rtx3060ti + miningFarm + asicMiner;
+    }
+    
+    // Проверка свободного места
+    function hasFreeSpace() {
+        return getTotalItems() < places;
+    }
+    
+    // Покупка оборудования
+    function buyItem(itemType, price, power) {
+        if (money >= price) {
+            if (hasFreeSpace()) {
+                money -= price;
+                miningPower += power;
+                
+                switch(itemType) {
+                    case 'gtx2080ti': gtx2080ti++; break;
+                    case 'quadroRTX4000': quadroRTX4000++; break;
+                    case 'rtx3090': rtx3090++; break;
+                    case 'rtx3060ti': rtx3060ti++; break;
+                    case 'miningFarm': miningFarm++; break;
+                    case 'asicMiner': asicMiner++; break;
+                }
+                
+                showNotification('✅ Purchased successfully!');
+                updateUI();
+                playSound('buy');
+            } else {
+                showNotification('❌ Not enough space! Buy a garage.');
+                playSound('error');
+            }
+        } else {
+            showNotification('❌ Not enough money!');
+            playSound('error');
+        }
+    }
+    
+    // Продажа оборудования
+    function sellItem(itemType, price, power) {
+        let hasItem = false;
+        
+        switch(itemType) {
+            case 'gtx2080ti': hasItem = gtx2080ti > 0; if (hasItem) gtx2080ti--; break;
+            case 'quadroRTX4000': hasItem = quadroRTX4000 > 0; if (hasItem) quadroRTX4000--; break;
+            case 'rtx3090': hasItem = rtx3090 > 0; if (hasItem) rtx3090--; break;
+            case 'rtx3060ti': hasItem = rtx3060ti > 0; if (hasItem) rtx3060ti--; break;
+            case 'miningFarm': hasItem = miningFarm > 0; if (hasItem) miningFarm--; break;
+            case 'asicMiner': hasItem = asicMiner > 0; if (hasItem) asicMiner--; break;
+        }
+        
+        if (hasItem) {
+            money += price;
+            miningPower -= power;
+            showNotification('💰 Sold successfully!');
+            updateUI();
+            playSound('sell');
+        } else {
+            showNotification('❌ You don\'t own this item!');
+            playSound('error');
+        }
+    }
+    
+    // Покупка гаража
+    function buyGarage() {
+        if (money >= GARAGE_PRICE) {
+            money -= GARAGE_PRICE;
+            places += 4;
+            showNotification('🏠 Garage purchased! +4 storage space');
+            updateUI();
+            playSound('upgrade');
+        } else {
+            showNotification('❌ Not enough money for garage!');
+            playSound('error');
+        }
+    }
+    
+    // Продажа всех биткоинов
+    function sellAllBitcoin() {
+        if (bitcoin > 0) {
+            const btcValue = bitcoin * 10;
+            money += btcValue;
+            showNotification(`💰 Sold ${bitcoin} BTC for ${btcValue}$!`);
+            bitcoin = 0;
+            updateUI();
+            playSound('cash');
+        } else {
+            showNotification('❌ No bitcoin to sell!');
+            playSound('error');
+        }
+    }
+    
+    // Майнинг биткоинов
+    function mineBitcoin() {
+        if (miningPower > 0) {
+            bitcoin += miningPower;
+            updateUI();
+            
+            // Случайная анимация майнинга
+            if (Math.random() > 0.7) {
+                createMiningParticle();
+            }
+        }
+    }
+    
+    // Уведомления
+    function showNotification(message) {
+        const notification = document.createElement('div');
+        notification.className = 'notification';
+        notification.textContent = message;
+        notification.style.position = 'fixed';
+        notification.style.top = '20px';
+        notification.style.left = '50%';
+        notification.style.transform = 'translateX(-50%)';
+        notification.style.backgroundColor = 'rgba(0,0,0,0.8)';
+        notification.style.color = '#fff';
+        notification.style.padding = '10px 20px';
+        notification.style.borderRadius = '50px';
+        notification.style.boxShadow = '0 0 20px rgba(0,255,255,0.5)';
+        notification.style.zIndex = '1000';
+        notification.style.animation = 'float 2s ease-in-out';
+        
+        document.body.appendChild(notification);
+        
+        setTimeout(() => {
+            notification.style.opacity = '0';
+            setTimeout(() => {
+                document.body.removeChild(notification);
+            }, 500);
+        }, 3000);
+    }
+    
+    // Создание частиц майнинга
+    function createMiningParticle() {
+        const particle = document.createElement('div');
+        particle.className = 'mining-particle';
+        particle.style.position = 'fixed';
+        particle.style.width = '10px';
+        particle.style.height = '10px';
+        particle.style.backgroundColor = '#00ffff';
+        particle.style.borderRadius = '50%';
+        particle.style.boxShadow = '0 0 10px #00ffff';
+        particle.style.zIndex = '100';
+        particle.style.left = Math.random() * 100 + 'vw';
+        particle.style.top = '0';
+        particle.style.animation = `fall ${Math.random() * 2 + 1}s linear forwards`;
+        
+        document.body.appendChild(particle);
+        
+        setTimeout(() => {
+            document.body.removeChild(particle);
+        }, 2000);
+    }
+    
+    // Звуковые эффекты
+    function playSound(type) {
+        // В реальном приложении здесь бы воспроизводились звуковые файлы
+        console.log(`Playing ${type} sound`);
+    }
+    
+    // Загрузка изображений на канвас
+    function loadImages() {
+        const images = {
+            '2080': '2080.png',
+            '4000': '4000.png',
+            '3090': '3090.png',
+            '3060': '3060.png',
+            'garage': 'garage.png',
+            'farm': 'farm.jpeg',
+            'asic': 'asic.png'
+        };
+        
+        const promises = Object.keys(images).map(key => {
+            return new Promise((resolve, reject) => {
+                const img = new Image();
+                img.onload = () => resolve({ key, img });
+                img.onerror = () => reject(`Failed to load image: ${images[key]}`);
+                img.src = images[key];
+            });
+        });
+        
+        return Promise.all(promises);
+    }
+    
+    // Отрисовка изображений на канвасе
+    function drawImages(loadedImages) {
+        const imagesMap = {};
+        loadedImages.forEach(({ key, img }) => {
+            imagesMap[key] = img;
+        });
+        
+        // RTX 2080 Ti
+        const canvas2080 = document.getElementById('canvas-2080');
+        const ctx2080 = canvas2080.getContext('2d');
+        ctx2080.drawImage(imagesMap['2080'], 0, 0, canvas2080.width, canvas2080.height);
+        
+        // QUADRO RTX4000
+        const canvas4000 = document.getElementById('canvas-4000');
+        const ctx4000 = canvas4000.getContext('2d');
+        ctx4000.drawImage(imagesMap['4000'], 0, 0, canvas4000.width, canvas4000.height);
+        
+        // RTX 3090
+        const canvas3090 = document.getElementById('canvas-3090');
+        const ctx3090 = canvas3090.getContext('2d');
+        ctx3090.drawImage(imagesMap['3090'], 0, 0, canvas3090.width, canvas3090.height);
+        
+        // RTX 3060 Ti
+        const canvas3060 = document.getElementById('canvas-3060');
+        const ctx3060 = canvas3060.getContext('2d');
+        ctx3060.drawImage(imagesMap['3060'], 0, 0, canvas3060.width, canvas3060.height);
+        
+        // Garage
+        const canvasGarage = document.getElementById('canvas-garage');
+        const ctxGarage = canvasGarage.getContext('2d');
+        ctxGarage.drawImage(imagesMap['garage'], 0, 0, canvasGarage.width, canvasGarage.height);
+        
+        // Mining Farm
+        const canvasFarm = document.getElementById('canvas-farm');
+        const ctxFarm = canvasFarm.getContext('2d');
+        ctxFarm.drawImage(imagesMap['farm'], 0, 0, canvasFarm.width, canvasFarm.height);
+        
+        // ASIC Miner
+        const canvasAsic = document.getElementById('canvas-asic');
+        const ctxAsic = canvasAsic.getContext('2d');
+        ctxAsic.drawImage(imagesMap['asic'], 0, 0, canvasAsic.width, canvasAsic.height);
+    }
+    
+    // Инициализация игры
+    function initGame() {
+        // Загрузка изображений
+        loadImages()
+            .then(drawImages)
+            .catch(error => console.error(error));
+        
+        updateUI();
+        setInterval(mineBitcoin, 2000);
+        
+        // Настройка обработчиков событий
+        document.querySelector('.buy-btn').addEventListener('click', () => buyItem('gtx2080ti', GTX2080TI_PRICE, GTX2080TI_POWER));
+        document.querySelector('.sell-btn').addEventListener('click', () => sellItem('gtx2080ti', GTX2080TI_PRICE, GTX2080TI_POWER));
+        
+        document.querySelector('.buy-btn-1').addEventListener('click', () => buyItem('quadroRTX4000', QUADRO_RTX4000_PRICE, QUADRO_RTX4000_POWER));
+        document.querySelector('.sell-btn-1').addEventListener('click', () => sellItem('quadroRTX4000', QUADRO_RTX4000_PRICE, QUADRO_RTX4000_POWER));
+        
+        document.querySelector('.buy-btn-2').addEventListener('click', () => buyItem('rtx3090', RTX3090_PRICE, RTX3090_POWER));
+        document.querySelector('.sell-btn-2').addEventListener('click', () => sellItem('rtx3090', RTX3090_PRICE, RTX3090_POWER));
+        
+        document.querySelector('.buy-btn-3').addEventListener('click', () => buyItem('rtx3060ti', RTX3060TI_PRICE, RTX3060TI_POWER));
+        document.querySelector('.sell-btn-3').addEventListener('click', () => sellItem('rtx3060ti', RTX3060TI_PRICE, RTX3060TI_POWER));
+        
+        document.querySelector('.buy-garage').addEventListener('click', buyGarage);
+        
+        document.querySelector('.buy-btn-4').addEventListener('click', () => buyItem('miningFarm', MINING_FARM_PRICE, MINING_FARM_POWER));
+        document.querySelector('.sell-btn-4').addEventListener('click', () => sellItem('miningFarm', MINING_FARM_PRICE, MINING_FARM_POWER));
+        
+        document.querySelector('.buy-btn-5').addEventListener('click', () => buyItem('asicMiner', ASIC_MINER_PRICE, ASIC_MINER_POWER));
+        document.querySelector('.sell-btn-5').addEventListener('click', () => sellItem('asicMiner', ASIC_MINER_PRICE, ASIC_MINER_POWER));
+        
+        document.querySelector('.sell-btc').addEventListener('click', sellAllBitcoin);
+        
+        // Добавляем стили для анимации
+        const style = document.createElement('style');
+        style.textContent = `
+            .pulse-animation {
+                animation: pulse 0.5s ease-in-out;
+            }
+            
+            @keyframes fall {
+                to { transform: translateY(100vh); opacity: 0; }
+            }
+            
+            .notification {
+                animation: float 2s ease-in-out;
+            }
+        `;
+        document.head.appendChild(style);
+    }
+    
+    // Запуск игры при загрузке страницы
+    window.addEventListener('DOMContentLoaded', initGame);
+    </script>
+</body>
+</html>
